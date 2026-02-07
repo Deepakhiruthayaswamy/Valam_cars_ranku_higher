@@ -25,36 +25,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
 
-  const track = document.querySelector(".carousel-track");
-  const cards = document.querySelectorAll(".car-card");
-  const prevBtn = document.querySelector(".nav-btn.prev");
-  const nextBtn = document.querySelector(".nav-btn.next");
+  document.addEventListener("DOMContentLoaded", () => {
+    const track = document.querySelector(".readytodrivesection-carousel-track");
+    const cards = document.querySelectorAll(".readytodrivesection-car-card");
+    const prevBtn = document.querySelector(".readytodrivesection-nav-btn.prev");
+    const nextBtn = document.querySelector(".readytodrivesection-nav-btn.next");
 
-  // safety check (VERY IMPORTANT)
-  if (!track || cards.length === 0 || !prevBtn || !nextBtn) return;
+    if (!track || cards.length === 0 || !prevBtn || !nextBtn) return;
 
-  let currentIndex = 0;
-  const gap = 20;
-  const cardWidth = cards[0].offsetWidth + gap;
-  const visibleCards = 3;
+    const cardWidth = cards[0].offsetWidth + 20; // card width + gap
+    const visibleCards = 3;
+    let currentIndex = 0;
 
-  nextBtn.addEventListener("click", () => {
-    if (currentIndex < cards.length - visibleCards) {
-      currentIndex++;
-      track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+    function updateButtons() {
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex >= cards.length - visibleCards;
     }
+
+    function moveCarousel() {
+      track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+      updateButtons();
+    }
+
+    nextBtn.addEventListener("click", () => {
+      if (currentIndex < cards.length - visibleCards) {
+        currentIndex++;
+        moveCarousel();
+      }
+    });
+
+    prevBtn.addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        moveCarousel();
+      }
+    });
+
+    // Initialize buttons state
+    updateButtons();
   });
 
-  prevBtn.addEventListener("click", () => {
-    if (currentIndex > 0) {
-      currentIndex--;
-      track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-    }
-  });
-
-});
 
 
 

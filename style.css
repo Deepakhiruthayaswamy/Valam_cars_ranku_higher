@@ -529,8 +529,10 @@ body {
 .carousel-arrows {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 16px;
   margin-top: 32px;
+  
 }
 
 .nav-btn {
